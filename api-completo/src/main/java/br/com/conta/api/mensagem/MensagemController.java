@@ -1,10 +1,14 @@
 package br.com.conta.api.mensagem;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import jakarta.validation.Valid;
 
 import java.util.List;
 
@@ -12,7 +16,8 @@ import java.util.List;
 @RequestMapping("/mensagem")
 public class MensagemController {
 
-    public final static MensagemService mensagemService = MensagemService.getInstance();
+    @Autowired
+    public  MensagemService mensagemService;
 
 
     @GetMapping
@@ -23,13 +28,13 @@ public class MensagemController {
     // --- 1  e 2 ---
 
     @PostMapping("/texto")
-    public MensagemTexto createMensagemTexto(@PathVariable String userId, String receiverId, String data, String texto ) {
-        return mensagemService.createTextMessage(userId, receiverId, data, texto);
+    public MensagemTexto createMensagemTexto(@RequestBody @Valid MensagemTexto mensagem ) {
+        return mensagemService.createTextMessage(mensagem);
     }
     
     @PostMapping("/arquivo")
-    public MensagemArquivo creareMensagemArquivo(@PathVariable String userId, String receiverId, String data, String nomeArquivo, String linkArquivo ) {
-        return mensagemService.createArquivoMessage(userId, receiverId, data, nomeArquivo, linkArquivo );
+    public MensagemArquivo creareMensagemArquivo(@RequestBody @Valid MensagemArquivo mensagem ) {
+        return mensagemService.createArquivoMessage(mensagem );
     }
 
     // --- 3 ---
@@ -58,12 +63,12 @@ public class MensagemController {
 
     // --- 5 ---
     @GetMapping("/arquivo/{userId}/user")
-    public List<MensagemArquivo> getMensagensArquivoUser(@PathVariable String userId) {
+    public List<MensagemArquivo> getMensagensArquivoUser(@PathVariable Integer userId) {
         return mensagemService.getMensagensArquivoByUser(userId);
     }
    
     @GetMapping("/texto/{userId}/user")
-    public List<MensagemTexto> getMensagensTextoUser(@PathVariable String userId) {
+    public List<MensagemTexto> getMensagensTextoUser(@PathVariable Integer userId) {
         return mensagemService.getMensagensTextoByUser(userId);
     }
     

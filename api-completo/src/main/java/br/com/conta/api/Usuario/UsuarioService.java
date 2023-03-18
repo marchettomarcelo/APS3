@@ -1,6 +1,5 @@
 package br.com.conta.api.Usuario;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -13,8 +12,6 @@ public class UsuarioService {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
-
-
     public Usuario createUsuario(Usuario usuario) {
         usuario.setIdentifier(UUID.randomUUID().toString());
         return usuarioRepository.save(usuario);
@@ -25,8 +22,8 @@ public class UsuarioService {
     }
 
 
-    public Usuario getUsuario(String id) {
-        return usuarioRepository.findByIdentifier(id);
+    public Usuario getUsuario(Integer userId) {
+        return usuarioRepository.findByIdentifier(userId);
     }
 
     

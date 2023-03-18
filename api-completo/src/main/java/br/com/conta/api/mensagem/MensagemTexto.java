@@ -29,5 +29,8 @@ public class MensagemTexto  {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Column(name = "identifier", nullable = false, unique = true)
+    private String identifier;
+
     
 }
