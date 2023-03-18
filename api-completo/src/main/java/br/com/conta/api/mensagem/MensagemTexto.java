@@ -1,27 +1,33 @@
 
 package br.com.conta.api.mensagem;
 import br.com.conta.api.Usuario.Usuario;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import jakarta.persistence.GeneratedValue;
+import lombok.Setter;
 
-public class MensagemTexto extends Mensagen {
+@Getter
+@Setter
+@Entity(name = "mensagem_texto")
+@NoArgsConstructor
+public class MensagemTexto  {
 
+    @Column(name = "texto")
     private String texto;
 
-    public MensagemTexto(Usuario sender , Usuario receiver, String data, String texto) {
-        super(sender, receiver, data);
-        this.texto = texto;
-    }
+    @Column(name = "sender")
+    private Usuario sender;
 
-    public String getTexto() {
-        return texto;
-    }
+    @Column(name = "receiver")
+    private Usuario receiver;
 
-    public void setTexto(String texto) {
-        this.texto = texto;
-    }
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
-    @Override
-    public String toString() {
-        return  getData() +" de " + getSender().getNome() + " para " + getReceiver().getNome() + ": " + getTexto();
-    }
     
 }

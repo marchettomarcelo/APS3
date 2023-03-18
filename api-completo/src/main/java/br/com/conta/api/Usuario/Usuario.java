@@ -2,51 +2,35 @@ package br.com.conta.api.Usuario;
 
 import java.util.UUID;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@Entity(name = "usuario")
 public class Usuario {
+    
+    @Column(name = "nome", nullable = false)
     private  String nome;
+
+    @Column(name = "email", unique = true)
     private  String email;
+
+    @Column(name = "aniversario")
     private String aniversario;
-    private String id;
 
-    public Usuario(String nome, String email, String aniversario) {
-        this.nome = nome;
-        this.email = email;
-        this.aniversario = aniversario;
-        this.id = UUID.randomUUID().toString();
+    @Column(name = "identifier", nullable = false, unique = true)
+    private String identifier;
 
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getAniversario() {
-        return aniversario;
-    }
-
-    public void setAniversario(String aniversario) {
-        this.aniversario = aniversario;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
     
 }

@@ -2,42 +2,31 @@ package br.com.conta.api.Usuario;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
 public class UsuarioService {
 
-    private static UsuarioService usuarioService = null;
-    private final List<Usuario> usuarios = new ArrayList<>();
-
-    private UsuarioService() {}
-
-    public static UsuarioService getInstance() {
-        if (usuarioService == null) {
-            usuarioService = new UsuarioService();
-        }
-        return usuarioService;
-    }
+    @Autowired
+    private UsuarioRepository usuarioRepository;
 
 
 
-    public Usuario createUsuario(String nome, String email, String aniversario) {
-        Usuario usuario = new Usuario(nome, email, aniversario);
-        usuarios.add(usuario);
-        return usuario;
-
+    public Usuario createUsuario(Usuario usuario) {
+        usuario.setIdentifier(UUID.randomUUID().toString());
+        return usuarioRepository.save(usuario);
     }
 
     public List<Usuario> getUsuarios() {
-        return usuarios;
+        return usuarioRepository.findAll();
     }
 
 
     public Usuario getUsuario(String id) {
-        for (Usuario usuario : usuarios) {
-            if (usuario.getId().equals(id)) {
-                return usuario;
-            }
-        }
-        return null;
+        return usuarioRepository.findByIdentifier(id);
     }
 
     
