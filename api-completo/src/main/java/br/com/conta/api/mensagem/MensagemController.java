@@ -63,12 +63,12 @@ public class MensagemController {
 
     // --- 5 ---
     @GetMapping("/arquivo/{userId}/user")
-    public List<MensagemArquivo> getMensagensArquivoUser(@PathVariable Integer userId) {
+    public List<MensagemArquivo> getMensagensArquivoUser(@PathVariable String userId) {
         return mensagemService.getMensagensArquivoByUser(userId);
     }
    
     @GetMapping("/texto/{userId}/user")
-    public List<MensagemTexto> getMensagensTextoUser(@PathVariable Integer userId) {
+    public List<MensagemTexto> getMensagensTextoUser(@PathVariable String userId) {
         return mensagemService.getMensagensTextoByUser(userId);
     }
     

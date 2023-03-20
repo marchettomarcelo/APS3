@@ -15,43 +15,29 @@ public class MensagemService {
     
     @Autowired
     private static MensagemArquivoRepository mensagemArquivoRepository;
-    
     @Autowired
     private static MensagemTextoRepository mensagemTextoRepository;
-
-
     @Autowired
     private static UsuarioService UsuarioServiceInstance;
     
 
-    public MensagemTexto createTextMessage(MensagemTexto msg)  {    
-        Usuario sender = UsuarioServiceInstance.getUsuario(msg.getSender().getId());
-        if (sender == null) { 
-            return null;
-        }
-        Usuario receiver = UsuarioServiceInstance.getUsuario(msg.getReceiver().getId());
-        if (receiver == null) {
-            return null;
-        }
 
+    public MensagemTexto createTextMessage(MensagemTexto msg)  {    
         msg.setIdentifier(UUID.randomUUID().toString());
-        return msg;
+        Usuario u = UsuarioServiceInstance.getUsuario(msg.getSender().getIdentifier());
+
+        msg.setSender(u);
+        return mensagemTextoRepository.save(msg);
         
     }
 
     public MensagemArquivo createArquivoMessage(MensagemArquivo msg)  {
-        Usuario sender = UsuarioServiceInstance.getUsuario(msg.getSender().getId());
-        if (sender == null) {
-            return null;
-        }
-
-        Usuario receiver = UsuarioServiceInstance.getUsuario(msg.getReceiver().getId());
-        if (receiver == null) {
-            return null;
-        }
-        
         msg.setIdentifier(UUID.randomUUID().toString());
-        return msg;
+        Usuario u = UsuarioServiceInstance.getUsuario(msg.getSender().getIdentifier());
+        
+        msg.setSender(u);
+        return mensagemArquivoRepository.save(msg);
+        
     }
 
     public List<MensagemTexto> getAllMensagensTexto() {
@@ -70,13 +56,13 @@ public class MensagemService {
         return mensagemArquivoRepository.findByIdentifier(id);
     }
 
-    public List<MensagemArquivo> getMensagensArquivoByUser( Integer userId) {
+    public List<MensagemArquivo> getMensagensArquivoByUser( String userId) {
         
         return mensagemArquivoRepository.findBySender(UsuarioServiceInstance.getUsuario(userId));
     
     }
     
-    public List<MensagemTexto> getMensagensTextoByUser( Integer userId) {
+    public List<MensagemTexto> getMensagensTextoByUser( String userId) {
         return mensagemTextoRepository.findBySender(UsuarioServiceInstance.getUsuario(userId));
     }
 

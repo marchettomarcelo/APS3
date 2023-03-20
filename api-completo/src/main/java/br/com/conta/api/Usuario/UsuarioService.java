@@ -22,7 +22,7 @@ public class UsuarioService {
     }
 
 
-    public Usuario getUsuario(Integer userId) {
+    public Usuario getUsuario(String userId) {
         return usuarioRepository.findByIdentifier(userId);
     }
 

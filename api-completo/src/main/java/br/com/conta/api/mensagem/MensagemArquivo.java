@@ -11,7 +11,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@Entity(name = "mensagem_arquivo")
+@Entity(name = "tb_mensagem_arquivo")
 @NoArgsConstructor
 public class MensagemArquivo  {
 

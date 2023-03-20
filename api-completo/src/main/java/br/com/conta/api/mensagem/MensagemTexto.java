@@ -12,7 +12,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@Entity(name = "mensagem_texto")
+@Entity(name = "tb_mensagem_texto")
 @NoArgsConstructor
 public class MensagemTexto  {
 
